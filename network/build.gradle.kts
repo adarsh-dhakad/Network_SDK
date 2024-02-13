@@ -42,6 +42,9 @@ afterEvaluate {
         publications {
             create<MavenPublication>("release") {
                 from(components["release"])
+                groupId = "com.devrev.network"
+                artifactId = "com.devrev.network"
+                version = "1.0.1"
                 // Add any additional configuration for your publication here
             }
         }
