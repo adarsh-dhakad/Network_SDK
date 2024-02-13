@@ -85,4 +85,7 @@ dependencies {
     //kotlin navigation components
     api("androidx.navigation:navigation-fragment-ktx:2.6.0")
     api("androidx.navigation:navigation-ui-ktx:2.6.0")
+
+    // paging 3
+    api("androidx.paging:paging-common-android:3.3.0-alpha03")
 }
