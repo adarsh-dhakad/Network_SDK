@@ -3,9 +3,10 @@ package com.devrev.network.mapper
 import com.devrev.network.Constants
 import com.devrev.network.data.MovieResponse
 import com.devrev.network.room.entity.LatestMovieEntity
+import com.devrev.network.room.entity.PopularMovieEntity
 
-fun MovieResponse.toLatestMovieEntity(page:Int,index:Int): LatestMovieEntity {
-    return LatestMovieEntity(
+fun MovieResponse.toPopularMovieEntity(page:Int, index:Int): PopularMovieEntity {
+    return PopularMovieEntity(
         id = id,
         isAdultOnly?:false,
         popularity?:0.0,
@@ -22,6 +23,6 @@ fun MovieResponse.toLatestMovieEntity(page:Int,index:Int): LatestMovieEntity {
         originalTitleAlternative?:"",
         originalLanguage?:"en-US",
         nextKey = page+1,
-        (((page)*Constants.PAGE_SIZE)+index).toLong()
+        (((page)* Constants.PAGE_SIZE)+index).toLong()
     )
 }

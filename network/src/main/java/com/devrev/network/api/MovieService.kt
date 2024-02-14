@@ -11,15 +11,11 @@ import retrofit2.http.Query
 interface MovieService {
 
     /**
-     * @return List of [MovieResponse]
+     * Fetches details for a specific list of movie
      * @param language the language to in which you want the data.
      * @param page the current page of items.
+     *  @return List of [MovieResponse]
      */
-    @GET("movie/top_rated")
-    suspend fun getTopRatedMovies(
-        @Query("language") language: String,
-        @Query("page") page: Int
-    ): Response<ResponseItems<MovieResponse>>
     @GET("movie/now_playing")
     suspend fun getLatestMovies(
         @Query("language") language: String,
@@ -32,6 +28,12 @@ interface MovieService {
         @Query("page") page: Int
     ): Response<ResponseItems<MovieResponse>>
 
+    /**
+     * Fetches details for a specific movie.
+     * @param movie_id The ID of the movie for which you want to retrieve data.
+     * @param language The language in which you want the data to be returned.
+     * @return [ResponseMovieDetails] containing details of the specified movie.
+     */
     @GET("movie/{movie_id}")
     suspend fun getMovieDetails(
         @Path("movie_id") movieId: Int,

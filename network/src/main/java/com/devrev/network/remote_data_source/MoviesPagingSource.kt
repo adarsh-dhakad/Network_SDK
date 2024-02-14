@@ -4,9 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.devrev.network.Constants.PAGE_SIZE
 import com.devrev.network.api.MovieService
-import com.devrev.network.data.MovieResponse
 import com.devrev.network.mapper.toLatestMovieEntity
-import com.devrev.network.room.LatestMovieEntity
+import com.devrev.network.room.entity.LatestMovieEntity
 import java.io.IOException
 
 class MoviesPagingSource(

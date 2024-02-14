@@ -8,7 +8,7 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.devrev.network.api.MovieService
 import com.devrev.network.mapper.toLatestMovieEntity
-import com.devrev.network.room.LatestMovieEntity
+import com.devrev.network.room.entity.LatestMovieEntity
 import com.devrev.network.room.dp.MoviesDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -51,7 +51,7 @@ class LatestMovieRemoteMediator(
             withContext(Dispatchers.IO) {
                 db.withTransaction {
                     if (loadType == LoadType.REFRESH) {
-                        db.getLatestDao().clearAll()
+                        db.getLatestMovieDao().clearAll()
                     }
                     val movies = ArrayList<LatestMovieEntity>()
                     for (i in response.body()?.results?.indices ?: 0..0) {
@@ -59,7 +59,7 @@ class LatestMovieRemoteMediator(
                             movies.add(it)
                         }
                     }
-                    db.getLatestDao().insertLatestMovies(movies)
+                    db.getLatestMovieDao().insertLatestMovies(movies)
                 }
             }
 

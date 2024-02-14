@@ -1,11 +1,10 @@
-package com.devrev.network.room
+package com.devrev.network.room.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-
-@Entity(tableName = "LatestMovieEntity")
-data class LatestMovieEntity(
+@Entity(tableName = "PopularMovieEntity")
+data class PopularMovieEntity(
     @PrimaryKey
     val id: Int,
     val isAdultOnly: Boolean=false,

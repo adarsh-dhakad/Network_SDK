@@ -8,10 +8,11 @@ import com.devrev.network.Constants
 import com.devrev.network.api.MovieService
 import com.devrev.network.data.MovieResponse
 import com.devrev.network.data.ResponseMovieDetails
-import com.devrev.network.remote_data_source.MoviesPagingSource
 import com.devrev.network.remote_mediator.LatestMovieRemoteMediator
-import com.devrev.network.room.LatestMovieEntity
+import com.devrev.network.remote_mediator.PopularMovieRemoteMediator
+import com.devrev.network.room.entity.LatestMovieEntity
 import com.devrev.network.room.dp.MoviesDatabase
+import com.devrev.network.room.entity.PopularMovieEntity
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
@@ -26,17 +27,28 @@ class MoviesRemoteDataSourceImpl(private val movieService: MovieService,private 
             ),
             pagingSourceFactory = {
               //  MoviesPagingSource(service = movieService)
-               roomDB.getLatestDao().getLatestMovies()
+               roomDB.getLatestMovieDao().getLatestMovies()
             },
             remoteMediator =  LatestMovieRemoteMediator(roomDB,movieService)
         ).flow
     }
 
-//    override suspend fun getPopularMovies(): Flow<PagingData<MovieResponse>> {
-//       return null
-//    }
-//
-//    override suspend fun getMovieDetails(movieId:Int): Response<ResponseMovieDetails> {
-//        return movieService.getMovieDetails(movieId)
-//    }
+    @OptIn(ExperimentalPagingApi::class)
+    override suspend fun getPopularMovies(): Flow<PagingData<PopularMovieEntity>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = Constants.PAGE_SIZE,
+                enablePlaceholders = true
+            ),
+            pagingSourceFactory = {
+                //  MoviesPagingSource(service = movieService)
+                roomDB.getPopularMovieDao().getPopularMovies()
+            },
+            remoteMediator =  PopularMovieRemoteMediator(roomDB,movieService)
+        ).flow
+    }
+
+    override suspend fun getMovieDetails(movieId:Int): Response<ResponseMovieDetails> {
+        return movieService.getMovieDetails(movieId,"en-US")
+    }
 }

@@ -2,8 +2,7 @@ package com.devrev.app.example.mapper
 
 
 import com.devrev.app.example.ui.MovieUi
-import com.devrev.network.data.MovieResponse
-import com.devrev.network.room.LatestMovieEntity
+import com.devrev.network.room.entity.LatestMovieEntity
 
 /*
 *  this class is created for testing
