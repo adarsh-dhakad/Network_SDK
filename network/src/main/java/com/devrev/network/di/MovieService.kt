@@ -1,6 +1,7 @@
 package com.devrev.network.di
 
 import com.devrev.network.di.data.MovieResponse
+import com.devrev.network.di.data.ResponseItems
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -16,5 +17,5 @@ interface MovieService {
     suspend fun getTopRatedMovies(
         @Query("language") language: String,
         @Query("page") page: Int
-    ): Response<List<MovieResponse>>
+    ): Response<ResponseItems<MovieResponse>>
 }

@@ -20,7 +20,7 @@ class MoviesPagingSource(
                 language = "en-US",
                 page = pageIndex
             )
-            val movies = response.body()?:ArrayList()
+            val movies = response.body()?.results?:ArrayList()
             val nextKey =
                 if (movies.isEmpty()) {
                     null
