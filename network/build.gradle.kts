@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     `maven-publish`
     id("maven-publish")
+    id("kotlin-kapt")
 }
 
 android {
@@ -87,9 +88,13 @@ dependencies {
     api("androidx.navigation:navigation-ui-ktx:2.6.0")
 
     // paging 3
-   // api("androidx.paging:paging-common-android:3.3.0-alpha03")
+    val pagingVersion = "3.2.1"
+    api("androidx.paging:paging-runtime-ktx:$pagingVersion")
 
-    api("androidx.paging:paging-runtime-ktx:3.2.1")
+    //room - db
+    val roomVersion = "2.5.1"
+    implementation("androidx.room:room-paging:$roomVersion")
+    implementation("androidx.room:room-rxjava2:$roomVersion")
 
     api("io.coil-kt:coil:2.5.0")
 }
