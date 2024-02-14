@@ -1,4 +1,4 @@
-package com.devrev.network.di.data
+package com.devrev.network.data
 
 data class ResponseMovieDetails(
     val adult: Boolean,

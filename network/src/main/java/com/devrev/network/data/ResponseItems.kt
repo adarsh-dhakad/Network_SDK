@@ -1,4 +1,4 @@
-package com.devrev.network.di.data
+package com.devrev.network.data
 
 /**
  * This structure represent a List of items.

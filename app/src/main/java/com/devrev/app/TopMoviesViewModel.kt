@@ -8,7 +8,7 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.devrev.app.example.mapper.MovieMapper
 import com.devrev.app.example.ui.MovieUi
-import com.devrev.network.di.repository.MoviesRemoteDataSource
+import com.devrev.network.repository.MoviesRemoteDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

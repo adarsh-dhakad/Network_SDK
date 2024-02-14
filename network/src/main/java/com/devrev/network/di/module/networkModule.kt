@@ -1,7 +1,9 @@
-package com.devrev.network.di
+package com.devrev.network.di.module
 
-import com.devrev.network.di.repository.MoviesRemoteDataSource
-import com.devrev.network.di.repository.MoviesRemoteDataSourceImpl
+import com.devrev.network.Constants
+import com.devrev.network.api.MovieService
+import com.devrev.network.repository.MoviesRemoteDataSource
+import com.devrev.network.repository.MoviesRemoteDataSourceImpl
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,10 +16,10 @@ import java.util.concurrent.TimeUnit
 val  networkModule = module {
     single(named("TMDB_KEY")) { provideApiKey() }
     single<OkHttpClient.Builder> { OkHttpClient.Builder() }
-    single { provideClient(get(), apiKey = get(named("TMDB_KEY")))}
+    single { provideClient(get(), apiKey = get(named("TMDB_KEY"))) }
     single { provideRetrofitBuilder(okHttpClient = get()) }
     single { provideMoviesService(get()) }
-    single<MoviesRemoteDataSource> { MoviesRemoteDataSourceImpl(get()) }
+    single<MoviesRemoteDataSource> { MoviesRemoteDataSourceImpl(get(),get()) }
 }
 /**
  * this is not a secure way to use api key

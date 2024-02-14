@@ -1,16 +1,18 @@
-package com.devrev.network.di.remote_data_source
+package com.devrev.network.remote_data_source
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.devrev.network.di.Constants.PAGE_SIZE
-import com.devrev.network.di.MovieService
-import com.devrev.network.di.data.MovieResponse
+import com.devrev.network.Constants.PAGE_SIZE
+import com.devrev.network.api.MovieService
+import com.devrev.network.data.MovieResponse
+import com.devrev.network.mapper.toLatestMovieEntity
+import com.devrev.network.room.LatestMovieEntity
 import java.io.IOException
 
 class MoviesPagingSource(
     private val service: MovieService
-) : PagingSource<Int, MovieResponse>() {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieResponse> {
+) : PagingSource<Int, LatestMovieEntity>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, LatestMovieEntity> {
         val pageIndex = params.key ?: 1
         return try {
             /**
@@ -20,7 +22,10 @@ class MoviesPagingSource(
                 language = "en-US",
                 page = pageIndex
             )
-            val movies = response.body()?.results?:ArrayList()
+            val movies = response.body()?.results?.map {
+                it.toLatestMovieEntity(0,1)
+            }?:ArrayList()
+
             val nextKey =
                 if (movies.isEmpty()) {
                     null
@@ -39,7 +44,7 @@ class MoviesPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, MovieResponse>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, LatestMovieEntity>): Int? {
         // Anchor position is the most recently accessed index.
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
