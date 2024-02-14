@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.map
 class TopMoviesViewModel(private val moviesRemoteDataSource: MoviesRemoteDataSource) : ViewModel() {
 
     suspend fun getTopMovies(): Flow<PagingData<MovieUi>> {
-       return moviesRemoteDataSource.getMovies().map{
+       return moviesRemoteDataSource.getLatestMovies().map{
                 pagingData ->
              pagingData.map {
                  MovieMapper.mapDomainMovieToUi(it)

@@ -14,9 +14,9 @@ class MoviesPagingSource(
         val pageIndex = params.key ?: 1
         return try {
             /**
-             * I am harding coding language but we use request parameters
+             * I am harding coding language but we can use request parameters
              */
-            val response = service.getTopRatedMovies(
+            val response = service.getLatestMovies(
                 language = "en-US",
                 page = pageIndex
             )
