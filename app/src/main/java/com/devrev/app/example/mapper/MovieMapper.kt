@@ -2,7 +2,8 @@ package com.devrev.app.example.mapper
 
 
 import com.devrev.app.example.ui.MovieUi
-import com.devrev.network.di.data.MovieResponse
+import com.devrev.network.data.MovieResponse
+import com.devrev.network.room.LatestMovieEntity
 
 /*
 *  this class is created for testing
@@ -11,7 +12,7 @@ import com.devrev.network.di.data.MovieResponse
 object MovieMapper{
 
     suspend fun mapDomainMovieToUi(
-        domainMovie: MovieResponse
+        domainMovie: LatestMovieEntity
     ): MovieUi {
         return MovieUi(
             id = domainMovie.id?:0,

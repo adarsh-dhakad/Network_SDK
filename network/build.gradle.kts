@@ -95,6 +95,9 @@ dependencies {
     val roomVersion = "2.5.1"
     implementation("androidx.room:room-paging:$roomVersion")
     implementation("androidx.room:room-rxjava2:$roomVersion")
+    implementation("androidx.room:room-runtime:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
 
     api("io.coil-kt:coil:2.5.0")
 }

@@ -1,4 +1,4 @@
-package com.devrev.network.di
+package com.devrev.network
 
 object Constants {
     const val PAGE_SIZE = 25

@@ -1,4 +1,4 @@
-package com.devrev.network.di.data
+package com.devrev.network.data
 
 data class MovieResponse(
     val id: Int,
@@ -15,5 +15,5 @@ data class MovieResponse(
     val releaseDateAlternative: String? = null,
     val originalTitle: String? = null,
     val originalTitleAlternative: String? = null,
-    val originalLanguage: String
+    val originalLanguage: String? = null
 )
