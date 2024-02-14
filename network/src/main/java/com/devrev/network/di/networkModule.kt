@@ -1,13 +1,10 @@
 package com.devrev.network.di
 
-import android.content.Context
-import com.devrev.network.R
 import com.devrev.network.di.repository.MoviesRemoteDataSource
 import com.devrev.network.di.repository.MoviesRemoteDataSourceImpl
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.BuildConfig
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -22,7 +19,10 @@ val  networkModule = module {
     single { provideMoviesService(get()) }
     single<MoviesRemoteDataSource> { MoviesRemoteDataSourceImpl(get()) }
 }
-
+/**
+ * this is not a secure way to use api key
+ *
+ */
 internal fun provideApiKey(): String = "909594533c98883408adef5d56143539"
 
     fun provideClient(
@@ -39,11 +39,11 @@ internal fun provideApiKey(): String = "909594533c98883408adef5d56143539"
             }
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
-        if (BuildConfig.DEBUG) {
+
             val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT)
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
             clientBuilder.addInterceptor(loggingInterceptor)
-        }
+
         return clientBuilder.build()
     }
 

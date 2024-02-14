@@ -8,6 +8,7 @@ data class MovieResponse(
     val voteCount: Int,
     val image: String? = null,
     val backdropImage: String? = null,
+    val poster_path:String? = null,
     val title: String? = null,
     val overview: String,
     val releaseDate: String? = null,

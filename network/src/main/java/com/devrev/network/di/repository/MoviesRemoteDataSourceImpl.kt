@@ -1,5 +1,6 @@
 package com.devrev.network.di.repository
 
+import android.util.Log
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -14,7 +15,7 @@ class MoviesRemoteDataSourceImpl(private val movieService:MovieService) : Movies
       return Pager(
           config = PagingConfig(
               pageSize = Constants.PAGE_SIZE,
-              enablePlaceholders = false
+              enablePlaceholders = true
           ),
           pagingSourceFactory = {
               MoviesPagingSource(service = movieService)
