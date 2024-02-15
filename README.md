@@ -29,10 +29,20 @@ Add the following dependency to your app module's build.gradle file:
 Paging 3 Integration: Utilize the power of Paging 3 for efficient network data loading and caching.
 
 ### Usage
-Initialize the SDK in your application class
-and Initialize modules 
+Initialize following modules 
 1. databaseModule
 2. networkModule
+   
+ in your application class
+
+ example -  
+
+     startKoin {
+            androidContext(this@MovieListApplication)
+            modules(listOf(networkModule, databaseModule))
+        }
+
+ full code - https://github.com/adarsh-dhakad/Movies_List_App_DevRev
 
 ### Contributing
 Contributions are welcome! If you encounter any issues or have suggestions for improvement, please feel free to open an issue or submit a pull request.
