@@ -13,6 +13,7 @@ import com.devrev.network.room.entity.LatestMovieEntity
 import com.devrev.network.room.dp.MoviesDatabase
 import com.devrev.network.room.entity.PopularMovieEntity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import java.io.IOException
 
@@ -47,6 +48,8 @@ class PopularMovieRemoteMediator(
 
         try {
             val response = apiService.getPopularMovies("en-US", page)
+            // simulate page loading this is for testing only
+            if (page != 0) delay(1000)
 
             val endList = (response.body()?.results?.isEmpty()) ?: true
 

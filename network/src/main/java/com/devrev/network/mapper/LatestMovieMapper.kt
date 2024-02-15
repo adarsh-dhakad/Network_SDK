@@ -22,6 +22,6 @@ fun MovieResponse.toLatestMovieEntity(page:Int,index:Int): LatestMovieEntity {
         originalTitleAlternative?:"",
         originalLanguage?:"en-US",
         nextKey = page+1,
-        (((page)*Constants.PAGE_SIZE)+index).toLong()
+        (((page)*Constants.PAGE_SIZE)+index)
     )
 }

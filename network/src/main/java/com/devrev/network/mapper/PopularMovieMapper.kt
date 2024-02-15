@@ -23,6 +23,6 @@ fun MovieResponse.toPopularMovieEntity(page:Int, index:Int): PopularMovieEntity 
         originalTitleAlternative?:"",
         originalLanguage?:"en-US",
         nextKey = page+1,
-        (((page)* Constants.PAGE_SIZE)+index).toLong()
+        (((page)* Constants.PAGE_SIZE)+index)
     )
 }

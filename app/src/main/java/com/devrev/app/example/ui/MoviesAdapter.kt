@@ -3,6 +3,7 @@ package com.devrev.app.example.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.AsyncPagingDataDiffer
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -50,7 +51,7 @@ class MoviesAdapter : PagingDataAdapter<MovieUi, MoviesAdapter.MoviePosterViewHo
 
 private class  MovieDiffCallBack : DiffUtil.ItemCallback<MovieUi>() {
     override fun areItemsTheSame(oldItem: MovieUi, newItem: MovieUi): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.id == newItem.id && oldItem.image == newItem.image
     }
 
     override fun areContentsTheSame(oldItem: MovieUi, newItem: MovieUi): Boolean {

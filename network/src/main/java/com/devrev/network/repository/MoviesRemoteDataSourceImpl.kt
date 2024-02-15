@@ -22,8 +22,11 @@ class MoviesRemoteDataSourceImpl(private val movieService: MovieService,private 
     override suspend fun getLatestMovies(): Flow<PagingData<LatestMovieEntity>> {
         return Pager(
             config = PagingConfig(
-                pageSize = Constants.PAGE_SIZE,
-                enablePlaceholders = true
+                pageSize = 20,
+                enablePlaceholders = true,
+                prefetchDistance = 10,
+                maxSize = 40,
+                initialLoadSize = 20
             ),
             pagingSourceFactory = {
               //  MoviesPagingSource(service = movieService)
@@ -37,8 +40,11 @@ class MoviesRemoteDataSourceImpl(private val movieService: MovieService,private 
     override suspend fun getPopularMovies(): Flow<PagingData<PopularMovieEntity>> {
         return Pager(
             config = PagingConfig(
-                pageSize = Constants.PAGE_SIZE,
-                enablePlaceholders = true
+                pageSize = 20,
+                enablePlaceholders = true,
+                prefetchDistance = 10,
+                maxSize = 40,
+                initialLoadSize = 20
             ),
             pagingSourceFactory = {
                 //  MoviesPagingSource(service = movieService)

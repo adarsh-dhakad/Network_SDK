@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.PagingData
@@ -11,6 +12,7 @@ import androidx.paging.map
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devrev.app.TopMoviesViewModel
 import com.devrev.app.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -41,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 //            footer = MovieLoadStateAdapter { adapter?.retry() }
 //        )
 
-    //    adapter?.addLoadStateListener { loadState -> renderUi(loadState) }
+        adapter?.addLoadStateListener { loadState -> renderUi(loadState) }
 
    //     binding.btnMoviesRetry.setOnClickListener { adapter?.retry() }
 
@@ -50,24 +52,9 @@ class MainActivity : AppCompatActivity() {
     private fun collectUiState() {
         adapter = MoviesAdapter()
         binding.rvMovies.adapter = adapter
-        binding.rvMovies.layoutManager = LinearLayoutManager(this)
-        GlobalScope.launch {
-            val list = listOf<MovieUi>(
-                MovieUi(),
-                MovieUi(),
-                MovieUi(),
-                MovieUi(),
-                MovieUi(),
-                MovieUi(),
-                MovieUi()
-            )
-            adapter?.submitData(PagingData.from(list))
+        lifecycleScope.launch(Dispatchers.IO) {
             moviesViewModel.getTopMovies().collectLatest { movies ->
-                movies.map {
-                    Log.d("devKey" , "rr"+it.toString())
-                }
                 adapter?.submitData(movies)
-                Log.d("devkey" , "item count"+adapter?.itemCount.toString())
             }
         }
     }

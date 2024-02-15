@@ -23,5 +23,5 @@ data class LatestMovieEntity(
     val originalTitleAlternative: String? = null,
     val originalLanguage: String = "en-US",
     val nextKey:Int = 2,
-    val createdAt:Long = System.currentTimeMillis()
+    val createdAt:Int = 0
 )

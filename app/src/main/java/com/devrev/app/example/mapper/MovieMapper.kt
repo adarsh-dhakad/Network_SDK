@@ -15,15 +15,8 @@ object MovieMapper{
     ): MovieUi {
         return MovieUi(
             id = domainMovie.id?:0,
-            isAdultOnly = domainMovie.isAdultOnly?:false,
-            popularity = domainMovie.popularity?:0.0,
-            voteAverage = domainMovie.voteAverage?:0.0,
-            voteCount = domainMovie.voteCount?:0,
             image = domainMovie.poster_path?:"",
-            title = domainMovie.title?:"",
-            overview = domainMovie.overview?:"",
-            releaseDate = domainMovie.releaseDate?:"",
-            originalLanguage = domainMovie.originalLanguage?:""
+            title = domainMovie.createdAt.toString()?:"",
         )
     }
 
