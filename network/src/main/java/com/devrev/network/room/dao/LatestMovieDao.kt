@@ -13,7 +13,7 @@ interface LatestMovieDao {
     suspend fun insertLatestMovies(list: List<LatestMovieEntity>)
 
  //   @Query("SELECT * FROM LatestMovieEntity Order by createdAt ASC, nextKey ASC")
-    @Query("SELECT * FROM LatestMovieEntity Order by nextKey ASC , createdAt ASC")
+    @Query("SELECT * FROM LatestMovieEntity Order by createdAt ASC,title ASC")
     fun getLatestMovies(): PagingSource<Int, LatestMovieEntity>
 
     @Query("DELETE FROM LatestMovieEntity")

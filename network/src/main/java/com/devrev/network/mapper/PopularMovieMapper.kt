@@ -8,20 +8,9 @@ import com.devrev.network.room.entity.PopularMovieEntity
 fun MovieResponse.toPopularMovieEntity(page:Int, index:Int): PopularMovieEntity {
     return PopularMovieEntity(
         id = id,
-        isAdultOnly?:false,
-        popularity?:0.0,
         voteAverage?:0.0,
-        voteCount?:0,
-        image,
-        backdropImage,
         poster_path,
         title,
-        overview?:"",
-        releaseDate,
-        releaseDateAlternative?:"",
-        originalTitle?:"",
-        originalTitleAlternative?:"",
-        originalLanguage?:"en-US",
         nextKey = page+1,
         (((page)* Constants.PAGE_SIZE)+index)
     )

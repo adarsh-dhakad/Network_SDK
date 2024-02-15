@@ -48,8 +48,13 @@ class PopularMovieRemoteMediator(
 
         try {
             val response = apiService.getPopularMovies("en-US", page)
-            // simulate page loading this is for testing only
-            if (page != 0) delay(1000)
+
+            val movies = ArrayList<PopularMovieEntity>()
+            for (i in response.body()?.results?.indices ?: 0..0) {
+                response.body()?.results?.get(i)?.toPopularMovieEntity(page, i)?.let {
+                    movies.add(it)
+                }
+            }
 
             val endList = (response.body()?.results?.isEmpty()) ?: true
 
@@ -57,12 +62,6 @@ class PopularMovieRemoteMediator(
                 db.withTransaction {
                     if (loadType == LoadType.REFRESH) {
                         db.getPopularMovieDao().clearAll()
-                    }
-                    val movies = ArrayList<PopularMovieEntity>()
-                    for (i in response.body()?.results?.indices ?: 0..0) {
-                        response.body()?.results?.get(i)?.toPopularMovieEntity(page, i)?.let {
-                            movies.add(it)
-                        }
                     }
                     db.getPopularMovieDao().insertPopularMovies(movies)
                 }

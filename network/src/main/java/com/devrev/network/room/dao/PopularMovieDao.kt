@@ -12,7 +12,7 @@ interface PopularMovieDao {
     @Upsert
     suspend fun insertPopularMovies(list: List<PopularMovieEntity>)
 
-    @Query("SELECT * FROM PopularMovieEntity Order by createdAt ASC")
+    @Query("SELECT * FROM PopularMovieEntity Order by createdAt ASC,title ASC")
     fun getPopularMovies(): PagingSource<Int, PopularMovieEntity>
 
     @Query("DELETE FROM PopularMovieEntity")

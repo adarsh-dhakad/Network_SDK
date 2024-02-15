@@ -13,6 +13,7 @@ import com.devrev.network.room.dp.MoviesDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import okhttp3.internal.wait
 import okio.IOException
 
 @OptIn(ExperimentalPagingApi::class)
@@ -47,24 +48,24 @@ class LatestMovieRemoteMediator(
         try {
             val response = apiService.getLatestMovies("en-US", page)
 
+            val movies = ArrayList<LatestMovieEntity>()
+            for (i in response.body()?.results?.indices ?: 0..0) {
+                response.body()?.results?.get(i)?.toLatestMovieEntity(page, i)?.let {
+                    movies.add(it)
+                }
+            }
+
             // simulate page loading this is for testing only
-            if (page != 0) delay(1000)
+            //
+            //  if (page != 0) delay(1000)
 
             val endList = (response.body()?.results?.isEmpty()) ?: true
 
-            withContext(Dispatchers.IO) {
-                db.withTransaction {
-                    if (loadType == LoadType.REFRESH) {
-                        db.getLatestMovieDao().clearAll()
-                    }
-                    val movies = ArrayList<LatestMovieEntity>()
-                    for (i in response.body()?.results?.indices ?: 0..0) {
-                        response.body()?.results?.get(i)?.toLatestMovieEntity(page, i)?.let {
-                            movies.add(it)
-                        }
-                    }
-                    db.getLatestMovieDao().insertLatestMovies(movies)
+            db.withTransaction {
+                if (loadType == LoadType.REFRESH) {
+                    db.getLatestMovieDao().clearAll()
                 }
+                db.getLatestMovieDao().insertLatestMovies(movies)
             }
 
             return MediatorResult.Success(endList)
