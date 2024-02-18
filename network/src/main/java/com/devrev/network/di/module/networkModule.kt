@@ -1,5 +1,6 @@
 package com.devrev.network.di.module
 
+import com.devrev.network.BuildConfig.API_KEY
 import com.devrev.network.Constants
 import com.devrev.network.api.MovieService
 import com.devrev.network.repository.MoviesRemoteDataSource
@@ -21,11 +22,8 @@ val  networkModule = module {
     single { provideMoviesService(get()) }
     single<MoviesRemoteDataSource> { MoviesRemoteDataSourceImpl(get(),get()) }
 }
-/**
- * this is not a secure way to use api key
- *
- */
-internal fun provideApiKey(): String = "909594533c98883408adef5d56143539"
+
+internal fun provideApiKey(): String = API_KEY
 
     fun provideClient(
         clientBuilder: OkHttpClient.Builder,
